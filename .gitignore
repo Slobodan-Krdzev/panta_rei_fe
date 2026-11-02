@@ -6,3 +6,4 @@ dist
 
 # Full-size gallery photos stay local; the compressed copies in public/images/gallery are committed
 gallery-originals/
+dist-server

@@ -176,7 +176,7 @@ html, body { overflow-x: clip; }
 .hero-copy { container-type: inline-size; }
 
 .eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
   font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
   color: var(--muted);
 }
@@ -205,6 +205,7 @@ html, body { overflow-x: clip; }
 .hero-visual { position: relative; }
 .hero-visual img {
   width: 100%;
+  height: auto; /* the width/height attributes only reserve space; the 3:2 frame sets the size */
   aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: var(--radius);
@@ -296,7 +297,7 @@ h2 { font-size: clamp(34px, 5vw, 64px); font-weight: 700; }
 }
 .about-image-wrap { position: relative; }
 .about-image-wrap img {
-  width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
+  width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover;
   border-radius: var(--radius);
   background: var(--placeholder);
 }
@@ -642,31 +643,146 @@ h2 { font-size: clamp(34px, 5vw, 64px); font-weight: 700; }
 .social-text strong { font-family: var(--font-display); font-weight: 500; font-size: 18px; }
 .social-card .arrow { font-size: 22px; }
 
+/* ---------- FAQ ---------- */
+.faq-grid {
+  display: grid; grid-template-columns: 1fr 1.3fr;
+  gap: clamp(40px, 6vw, 96px); align-items: start;
+}
+.faq-grid > * { min-width: 0; }
+.faq-intro { position: sticky; top: 120px; }
+.faq-intro h2 { margin-bottom: 24px; font-size: clamp(30px, 3.8vw, 52px); text-wrap: balance; }
+.faq-intro p:not(.overline) { color: var(--muted); max-width: 36ch; }
+
+.faq-list { border-top: 1px solid var(--line); }
+.faq-list details { border-bottom: 1px solid var(--line); }
+.faq-list summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 26px 0;
+  list-style: none;
+  cursor: pointer;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary h3 {
+  font-weight: 500;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.25;
+  transition: color .2s;
+}
+.faq-list summary:hover h3 { color: var(--accent); }
+.faq-list summary .lucide {
+  font-size: 22px; color: var(--accent);
+  transition: transform .3s;
+}
+.faq-list details[open] summary .lucide { transform: rotate(45deg); }
+.faq-list details p {
+  padding: 0 48px 28px 0;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
 /* ---------- Booking ---------- */
 .booking {
   background: var(--surface-dark); color: var(--text-on-dark);
   text-align: center;
   padding: clamp(96px, 14vw, 180px) var(--gutter);
 }
-.booking h2 { font-size: clamp(40px, 7vw, 96px); font-weight: 900; margin-bottom: 48px; }
-.booking-link {
-  display: inline-flex; align-items: center; gap: 14px;
-  padding: 22px 40px;
-  background: var(--accent-fill); color: var(--on-accent);
-  border-radius: 999px;
-  font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 2vw, 24px);
-  transition: transform .2s, background .2s;
+.booking h2 { font-size: clamp(40px, 7vw, 96px); font-weight: 900; margin-bottom: 24px; }
+.booking-intro { color: var(--muted-on-dark); font-size: 18px; margin-bottom: 48px; }
+.contact-list.booking-contacts {
+  max-width: 920px;
+  margin: 0 auto 36px;
+  text-align: left;
 }
-.booking-link:hover { transform: scale(1.04); background: var(--accent-fill-hover); }
+
+/* ---------- Contact (shared by the modal and the booking section) ---------- */
+/* two columns; the odd last card is centred */
+.contact-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+}
+.contact-list > li { flex: 0 1 calc(50% - 6px); min-width: 0; }
+.contact-item {
+  height: 100%;
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 2px 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 12px;
+  background: var(--surface-dark-soft);
+  color: var(--text-on-dark);
+  transition: border-color .2s, transform .2s, background .2s;
+}
+.contact-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+.contact-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.contact-icon {
+  grid-row: span 2;
+  display: grid; place-items: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--accent-fill); color: var(--on-accent);
+  font-size: 18px;
+}
+.contact-person { min-width: 0; display: grid; line-height: 1.3; }
+.contact-person strong { font-family: var(--font-display); font-weight: 500; font-size: 15px; }
+.contact-person small { color: var(--muted-on-dark); font-size: 13px; }
+.contact-number {
+  grid-column: 2;
+  font-weight: 700; font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--accent);
+}
+
+.contact-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.contact-social a {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 22px;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 999px;
+  color: var(--text-on-dark);
+  font-weight: 700; font-size: 15px;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.contact-social a:hover { background: var(--accent-fill); color: var(--on-accent); border-color: transparent; }
+.contact-social .lucide { font-size: 18px; }
+
+.contact-modal {
+  width: min(900px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 16px;
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+.contact-modal[open] { animation: contact-in .25s ease-out; }
+.contact-modal::backdrop { background: rgba(0, 0, 0, .72); backdrop-filter: blur(4px); }
+@keyframes contact-in { from { opacity: 0; transform: translateY(12px); } }
+.contact-panel { padding: clamp(20px, 4vw, 32px); }
+.contact-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.contact-head .overline { margin-bottom: 8px; }
+.contact-head h2 { font-size: clamp(30px, 6vw, 40px); }
+.contact-intro { color: var(--muted-on-dark); margin: 10px 0 20px; }
+.contact-or {
+  margin: 24px 0 14px;
+  text-align: center;
+  font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted-on-dark);
+}
+.mobile-menu-panel a.mobile-menu-contact { color: var(--accent); }
 
 /* ---------- Footer ---------- */
 footer {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 32px;
   padding: 32px var(--gutter);
   background: var(--surface-dark); color: var(--muted-on-dark);
   border-top: 1px solid var(--line-on-dark);
   font-size: 14px;
 }
+
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; }
+.footer-links a { color: var(--text-on-dark); transition: color .2s; }
+.footer-links a:hover { color: var(--accent); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
@@ -677,12 +793,17 @@ footer {
   .hero-visual { max-width: 720px; }
   .hero-stamp { left: 12px; }
   .vertical-note { display: none; }
-  .band-intro { position: static; }
+  .band-intro, .faq-intro { position: static; }
+  .faq-grid { grid-template-columns: 1fr; }
   .occasion-grid { grid-template-columns: 1fr; }
   .card-top { margin-bottom: 40px; }
   .statement-badge { position: static; display: inline-flex; margin-top: 40px; }
   .gallery-head { grid-template-columns: 1fr; gap: 20px; }
   .carousel-viewport { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 480px) {
+  .contact-list > li { flex-basis: 100%; }
 }
 
 /* Tablets: two occasion cards per row, the third spans the full width */
@@ -693,6 +814,7 @@ footer {
 
 @media (max-width: 560px) {
   .site-header { padding-block: 10px; }
+  .eyebrow { font-size: 11px; letter-spacing: .1em; gap: 6px 8px; }
   .brand-logo { height: 40px; }
   .about-facts { margin-top: 36px; }
   .about-facts div { padding-right: 8px; }
@@ -707,7 +829,9 @@ footer {
   .social-icon { width: 44px; height: 44px; font-size: 18px; }
   .social-text strong { font-size: 16px; }
   .statement-badge { padding: 14px 20px; }
-  .booking-link { padding: 18px 32px; }
+  .contact-item { padding: 12px 14px; gap: 2px 12px; }
+  .contact-icon { width: 38px; height: 38px; font-size: 16px; }
+  .contact-person strong, .contact-number { font-size: 14px; }
   .carousel-viewport { aspect-ratio: 1 / 1; }
   .carousel-arrow { width: 44px; height: 44px; margin-top: -22px; font-size: 22px; }
   .carousel-arrow.prev { left: 10px; }

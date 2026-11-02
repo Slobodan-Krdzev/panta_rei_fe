@@ -22,9 +22,14 @@ const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export default function Gallery() {
-  const [photos] = useState(() => shuffle(PHOTOS));
+  // Same order on the server and on first paint (so pre-rendered HTML hydrates cleanly), then shuffled
+  const [photos, setPhotos] = useState(PHOTOS);
+  useEffect(() => setPhotos(shuffle(PHOTOS)), []);
   const count = photos.length;
-  const [playing, setPlaying] = useState(() => !prefersReducedMotion());
+  const [playing, setPlaying] = useState(true);
+  useEffect(() => {
+    if (prefersReducedMotion()) setPlaying(false);
+  }, []);
   const [hovered, setHovered] = useState(false);
   const [tabHidden, setTabHidden] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -102,7 +107,7 @@ export default function Gallery() {
                     sizes="(max-width: 960px) 100vw, 1200px"
                     width={photo.width}
                     height={photo.height}
-                    alt={`Група Панта Реи — фотографија ${realIndex + 1}`}
+                    alt={`Бенд за свадби Панта Реи — настап во живо, фотографија ${realIndex + 1}`}
                     loading={near ? "eager" : "lazy"}
                     decoding="async"
                     draggable="false"

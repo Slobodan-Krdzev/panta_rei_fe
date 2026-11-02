@@ -85,7 +85,7 @@ export default function Lightbox({ photos, startIndex, onClose }) {
                   sizes="100vw"
                   width={photo.width}
                   height={photo.height}
-                  alt={`Група Панта Реи — фотографија ${realIndex + 1}`}
+                  alt={`Бенд за свадби Панта Реи — настап во живо, фотографија ${realIndex + 1}`}
                   loading={near ? "eager" : "lazy"}
                   decoding="async"
                   draggable="false"

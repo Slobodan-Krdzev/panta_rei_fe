@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, Menu } from "lucide-react";
 import Logo from "./Logo.jsx";
+import { ContactButton } from "../contact/ContactModal.jsx";
 import { LINKS, NAV } from "../data.js";
 
 const MOBILE_LINKS = [
@@ -36,16 +37,20 @@ export default function Header() {
         ))}
       </nav>
       <div className="header-actions">
-        <a className="header-cta" href={LINKS.facebook} target="_blank" rel="noreferrer">
+        <ContactButton className="header-cta">
           <span>Контакт</span>
           <ArrowUpRight aria-hidden="true" />
-        </a>
+        </ContactButton>
         <details className="mobile-menu" ref={menuRef}>
           <summary aria-label="Отвори мени">
             <Menu aria-hidden="true" />
           </summary>
           <nav className="mobile-menu-panel" aria-label="Мобилна навигација">
             <p>Мени</p>
+            <ContactButton className="mobile-menu-contact" onOpen={() => menuRef.current?.removeAttribute("open")}>
+              <span>Контакт</span>
+              <ArrowUpRight aria-hidden="true" />
+            </ContactButton>
             {MOBILE_LINKS.map((item) => (
               <a
                 key={item.href}

@@ -20,7 +20,22 @@ from the site on the next run. The carousel shuffles the order on every visit.
 `gallery-originals/` is git-ignored (originals are large); commit `public/images/gallery/`
 and `src/gallery.json` — that is what Vercel serves.
 
-## Theme
+## Site settings (`.env`)
 
-`<html data-theme="metallic">` in `index.html` enables the black / rose-gold theme from the
-logo. Remove the attribute to return to the original cream / red theme.
+- `VITE_SITE_URL` — the live address (no trailing slash). Used for the canonical URL, social previews,
+  `sitemap.xml`, `robots.txt` and structured data. **Change it when you connect your own domain.**
+- `VITE_THEME` — `metallic` (black / rose-gold from the logo) or empty for the original cream / red look.
+
+## SEO
+
+`npm run build` pre-renders the page to static HTML (`scripts/prerender.mjs`), so search engines and
+link previews see the full content, and generates:
+
+- `<head>`: title, description, keywords, canonical, Open Graph / Twitter cards, geo tags (`index.html`)
+- JSON-LD structured data: MusicGroup + EntertainmentBusiness, WebSite, WebPage, ImageGallery, FAQPage (`src/seo.js`)
+- `sitemap.xml` (with every gallery photo) and `robots.txt`
+
+FAQ text lives in `src/data.js` and feeds both the visible section and the FAQPage data.
+
+Icons: `npm run icons` rebuilds the favicon set from the logo (`scripts/build-icons.mjs`).
+The share image is `public/og-image.jpg` (1200×630).

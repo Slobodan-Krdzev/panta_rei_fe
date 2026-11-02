@@ -1,5 +1,5 @@
-import { ArrowUpRight } from "lucide-react";
-import { LINKS } from "../data.js";
+import ContactList from "../contact/ContactList.jsx";
+import SocialButtons from "../contact/SocialButtons.jsx";
 
 export default function Booking() {
   return (
@@ -10,9 +10,9 @@ export default function Booking() {
         <br />
         вечер за паметење.
       </h2>
-      <a className="booking-link" href={LINKS.facebook} target="_blank" rel="noreferrer">
-        Пишете ни <ArrowUpRight aria-hidden="true" />
-      </a>
+      <p className="booking-intro">Јавете ни се директно — секој член од бендот е на располагање.</p>
+      <ContactList className="booking-contacts" />
+      <SocialButtons />
     </section>
   );
 }

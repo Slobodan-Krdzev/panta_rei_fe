@@ -7,23 +7,28 @@ import Band from "./components/Band.jsx";
 import Gallery from "./components/Gallery.jsx";
 import Statement from "./components/Statement.jsx";
 import Repertoire from "./components/Repertoire.jsx";
+import Faq from "./components/Faq.jsx";
 import Booking from "./components/Booking.jsx";
 import Footer from "./components/Footer.jsx";
+import { ContactProvider } from "./contact/ContactModal.jsx";
 
 export default function App() {
   return (
-    <main>
+    <ContactProvider>
       <Header />
-      <Hero />
-      <Marquee />
-      <About />
-      <Occasions />
-      <Band />
-      <Gallery />
-      <Statement />
-      <Repertoire />
-      <Booking />
+      <main>
+        <Hero />
+        <Marquee />
+        <About />
+        <Occasions />
+        <Band />
+        <Gallery />
+        <Statement />
+        <Repertoire />
+        <Faq />
+        <Booking />
+      </main>
       <Footer />
-    </main>
+    </ContactProvider>
   );
 }

@@ -1,17 +1,16 @@
 import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
-import { LINKS } from "../data.js";
+import { ContactButton } from "../contact/ContactModal.jsx";
 
 export default function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero-copy">
         <p className="eyebrow">
-          <MapPin aria-hidden="true" /> Гевгелија <span className="dot" /> Од 2000
+          <MapPin aria-hidden="true" /> Бенд за свадби <span className="dot" /> Гевгелија <span className="dot" /> Од 2000
         </p>
         <h1>
-          <span>ГРУПА</span>
-          <span>ПАНТА</span>
-          <span className="accent-word">РЕИ</span>
+          {/* the spaces keep the words separate for search engines; the layout stacks them */}
+          <span>ГРУПА</span> <span>ПАНТА</span> <span className="accent-word">РЕИ</span>
         </h1>
         <p className="hero-lead">
           Музика што се памети.
@@ -19,16 +18,24 @@ export default function Hero() {
           Вечери што се прераскажуваат.
         </p>
         <div className="hero-actions">
-          <a className="button button-primary" href={LINKS.facebook} target="_blank" rel="noreferrer">
+          <ContactButton className="button button-primary">
             Закажете настап <ArrowUpRight aria-hidden="true" />
-          </a>
+          </ContactButton>
           <a className="button button-ghost" href="#about">
             Запознајте нè <ArrowDown aria-hidden="true" />
           </a>
         </div>
       </div>
       <div className="hero-visual">
-        <img src="/images/panta-rei-formal.jpg" alt="Членовите на Група Панта Реи во сценски костуми" />
+        <img
+          src="/images/panta-rei-formal.webp"
+          srcSet="/images/panta-rei-formal-1000.webp 1000w, /images/panta-rei-formal.webp 2000w"
+          sizes="(max-width: 960px) 100vw, 55vw"
+          width="2000"
+          height="1333"
+          fetchPriority="high"
+          alt="Група Панта Реи — бенд за свадби од Гевгелија, седумте членови во сценски костуми"
+        />
         <div className="hero-stamp" aria-label="Седум музичари, еден звук">
           <strong>7</strong>
           <span>
