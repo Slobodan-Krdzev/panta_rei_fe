@@ -1,0 +1,8 @@
+node_modules
+dist
+.vercel
+.DS_Store
+*.log
+
+# Full-size gallery photos stay local; the compressed copies in public/images/gallery are committed
+gallery-originals/
