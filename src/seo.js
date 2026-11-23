@@ -17,6 +17,8 @@ export function structuredData() {
     description:
       "Бенд за свадби и прослави од Гевгелија. Седумчлен бенд со музика во живо за свадби, крштевки, прослави, клубови и корпоративни настани низ цела Северна Македонија, од 2000 година.",
     slogan: "Музика што се памети.",
+    keywords:
+      "свадби, бенд за свадба, бендови за свадби, свадбарски бенд, свадбарски бендови, музика во живо, bend za svadbi, bendovi za svadbi, svadbarski bendovi",
     url,
     logo: abs("/icon-512.png"),
     image: [abs("/og-image.jpg"), abs("/images/panta-rei-formal.webp"), abs("/images/panta-rei-casual.webp")],

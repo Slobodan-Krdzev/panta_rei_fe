@@ -47,15 +47,18 @@ ${images.map((src) => `    <image:image><image:loc>${esc(SITE_URL + src)}</image
 `;
 await writeFile(path.join(DIST, "sitemap.xml"), sitemap);
 
-// 3) robots.txt
+// 3) robots.txt — two variants, picked per host by the rewrites in vercel.json:
+//    the real domain gets robots-allow.txt, every other host (*.vercel.app, previews) gets robots-block.txt.
+//    No plain robots.txt is written, otherwise Vercel would serve it before the rewrite runs.
 await writeFile(
-  path.join(DIST, "robots.txt"),
+  path.join(DIST, "robots-allow.txt"),
   `User-agent: *
 Allow: /
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `
 );
+await writeFile(path.join(DIST, "robots-block.txt"), `User-agent: *\nDisallow: /\n`);
 
 await rm(SERVER, { recursive: true, force: true });
-console.log(`prerender: index.html (${Math.round(html.length / 1024)} KB), sitemap.xml (${images.length} images), robots.txt → ${SITE_URL}`);
+console.log(`prerender: index.html (${Math.round(html.length / 1024)} KB), sitemap.xml (${images.length} images), robots-allow/block.txt → ${SITE_URL}`);

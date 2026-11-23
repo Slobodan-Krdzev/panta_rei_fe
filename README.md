@@ -33,7 +33,7 @@ link previews see the full content, and generates:
 
 - `<head>`: title, description, keywords, canonical, Open Graph / Twitter cards, geo tags (`index.html`)
 - JSON-LD structured data: MusicGroup + EntertainmentBusiness, WebSite, WebPage, ImageGallery, FAQPage (`src/seo.js`)
-- `sitemap.xml` (with every gallery photo) and `robots.txt`
+- `sitemap.xml` (with every gallery photo) and `robots.txt` (served per host by `vercel.json`: only pantareinastani.com is crawlable; `*.vercel.app` and preview URLs get `Disallow: /` + `X-Robots-Tag: noindex`)
 
 FAQ text lives in `src/data.js` and feeds both the visible section and the FAQPage data.
 
