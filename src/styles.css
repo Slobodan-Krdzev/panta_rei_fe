@@ -844,6 +844,20 @@ footer {
 .footer-pages { display: flex; flex-wrap: wrap; gap: 8px 20px; flex-basis: 100%; order: 3; }
 .footer-pages a { color: var(--text-on-dark); transition: color .2s; }
 .footer-pages a:hover { color: var(--accent); }
+.footer-cities { order: 4; font-size: 13px; gap: 6px 14px; }
+.footer-cities span { color: var(--muted-on-dark); }
+
+.related-subtitle { font-size: clamp(20px, 2.2vw, 26px); margin: 56px 0 20px; }
+.city-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.city-chips a {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 999px;
+  font-size: 15px;
+  transition: border-color .2s, color .2s;
+}
+.city-chips a:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {

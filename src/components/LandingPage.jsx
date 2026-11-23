@@ -9,7 +9,8 @@ import { CITY_PAGES, SERVICE_PAGES } from "../pages.js";
 // A service or city page (see src/pages.js). Shares the header, gallery, booking and footer with the home page.
 export default function LandingPage({ page }) {
   const { eyebrow, h1, lead, image, sections, faq } = page;
-  const related = [...SERVICE_PAGES, ...CITY_PAGES].filter((p) => p.slug !== page.slug);
+  const services = SERVICE_PAGES.filter((p) => p.slug !== page.slug);
+  const cities = CITY_PAGES.filter((p) => p.slug !== page.slug);
 
   return (
     <>
@@ -108,7 +109,7 @@ export default function LandingPage({ page }) {
           <p className="overline">Свириме насекаде</p>
           <h2 id="related-title">Каде и за што свириме.</h2>
           <ul className="related-grid">
-            {related.map((p) => (
+            {services.map((p) => (
               <li key={p.slug}>
                 <a className="related-card" href={`/${p.slug}`}>
                   <span>{p.navLabel}</span>
@@ -122,6 +123,14 @@ export default function LandingPage({ page }) {
                 <ArrowUpRight aria-hidden="true" />
               </a>
             </li>
+          </ul>
+          <h3 className="related-subtitle">Бенд за свадба низ цела Македонија</h3>
+          <ul className="city-chips">
+            {cities.map((p) => (
+              <li key={p.slug}>
+                <a href={`/${p.slug}`}>{p.city}</a>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
