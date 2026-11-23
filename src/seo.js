@@ -89,3 +89,57 @@ export function structuredData() {
 
   return { "@context": "https://schema.org", "@graph": [band, website, page, gallery, faq] };
 }
+
+// schema.org JSON-LD for a landing page from src/pages.js: the page, the service it offers, breadcrumbs and its FAQ.
+// The band itself is described in full on the home page; here it is referenced by @id.
+export function pageStructuredData(page) {
+  const home = `${SITE_URL}/`;
+  const url = `${SITE_URL}/${page.slug}`;
+  const band = { "@type": "MusicGroup", "@id": `${home}#band`, name: SITE_NAME, url: home, telephone: CONTACTS[0].phone };
+  const area = page.city
+    ? { "@type": "City", name: page.city, containedInPlace: { "@type": "Country", name: "Северна Македонија" } }
+    : { "@type": "Country", name: "Северна Македонија" };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: page.title,
+        description: page.description,
+        inLanguage: "mk-MK",
+        isPartOf: { "@id": `${home}#website` },
+        about: { "@id": `${url}#service` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        primaryImageOfPage: { "@type": "ImageObject", url: `${SITE_URL}${page.image.src}`, width: page.image.width, height: page.image.height },
+      },
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: page.service,
+        serviceType: page.service,
+        description: page.description,
+        url,
+        provider: band,
+        areaServed: area,
+        image: `${SITE_URL}${page.image.src}`,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Почетна", item: home },
+          { "@type": "ListItem", position: 2, name: page.navLabel, item: url },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": `${url}#webpage` },
+        mainEntity: page.faq.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+      },
+    ],
+  };
+}

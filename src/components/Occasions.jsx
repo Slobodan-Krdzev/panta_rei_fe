@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import SectionKicker from "./SectionKicker.jsx";
 import { OCCASIONS, pad } from "../data.js";
 
@@ -17,7 +18,7 @@ export default function Occasions() {
         </p>
       </div>
       <div className="occasion-grid">
-        {OCCASIONS.map(({ icon: Icon, title, text }, i) => (
+        {OCCASIONS.map(({ icon: Icon, title, text, href }, i) => (
           <article className="occasion-card" key={title}>
             <div className="card-top">
               <span>{pad(i)}</span>
@@ -25,6 +26,11 @@ export default function Occasions() {
             </div>
             <h3>{title}</h3>
             <p>{text}</p>
+            {href && (
+              <a className="card-link" href={href}>
+                Дознајте повеќе <ArrowUpRight aria-hidden="true" />
+              </a>
+            )}
           </article>
         ))}
       </div>

@@ -10,25 +10,35 @@ import Repertoire from "./components/Repertoire.jsx";
 import Faq from "./components/Faq.jsx";
 import Booking from "./components/Booking.jsx";
 import Footer from "./components/Footer.jsx";
+import LandingPage from "./components/LandingPage.jsx";
 import { ContactProvider } from "./contact/ContactModal.jsx";
+import { findPage } from "./pages.js";
 
-export default function App() {
+// `path` is the URL path: "/" renders the home page, "/svadbi" etc. a landing page from src/pages.js
+export default function App({ path = "/" }) {
+  const page = findPage(path);
   return (
     <ContactProvider>
       <Header />
-      <main>
-        <Hero />
-        <Marquee />
-        <About />
-        <Occasions />
-        <Band />
-        <Gallery />
-        <Statement />
-        <Repertoire />
-        <Faq />
-        <Booking />
-      </main>
+      <main>{page ? <LandingPage page={page} /> : <Home />}</main>
       <Footer />
     </ContactProvider>
+  );
+}
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <Marquee />
+      <About />
+      <Occasions />
+      <Band />
+      <Gallery />
+      <Statement />
+      <Repertoire />
+      <Faq />
+      <Booking />
+    </>
   );
 }

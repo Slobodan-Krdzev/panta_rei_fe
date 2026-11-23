@@ -6,10 +6,10 @@ export const LINKS = {
 };
 
 export const NAV = [
-  { href: "#about", label: "За нас" },
-  { href: "#occasions", label: "Настапи" },
-  { href: "#band", label: "Бендот" },
-  { href: "#gallery", label: "Галерија" },
+  { href: "/#about", label: "За нас" },
+  { href: "/#occasions", label: "Настапи" },
+  { href: "/#band", label: "Бендот" },
+  { href: "/#gallery", label: "Галерија" },
 ];
 
 export const MARQUEE_ITEMS = [
@@ -30,6 +30,7 @@ export const OCCASIONS = [
   {
     icon: CalendarDays,
     title: "Свадби и семејни прослави",
+    href: "/svadbi",
     text: "Свадбарски бенд со музика во живо за свадби, крштевки и семејни прослави — моменти што остануваат засекогаш.",
   },
   {
@@ -40,6 +41,7 @@ export const OCCASIONS = [
   {
     icon: UsersRound,
     title: "Корпоративни настани",
+    href: "/korporativni-nastani",
     text: "Професионален настап прилагоден на вашиот настан.",
   },
 ];

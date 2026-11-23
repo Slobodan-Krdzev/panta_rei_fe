@@ -21,7 +21,7 @@ function shuffle(list) {
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export default function Gallery() {
+export default function Gallery({ number = "04" }) {
   // Same order on the server and on first paint (so pre-rendered HTML hydrates cleanly), then shuffled
   const [photos, setPhotos] = useState(PHOTOS);
   useEffect(() => setPhotos(shuffle(PHOTOS)), []);
@@ -62,7 +62,7 @@ export default function Gallery() {
 
   return (
     <section className="gallery section" id="gallery">
-      <SectionKicker number="04" label="Галерија" />
+      <SectionKicker number={number} label="Галерија" />
       <div className="gallery-head">
         <div>
           <p className="overline">Од сцената</p>
