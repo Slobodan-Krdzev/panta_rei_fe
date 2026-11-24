@@ -20,6 +20,15 @@ from the site on the next run. The carousel shuffles the order on every visit.
 `gallery-originals/` is git-ignored (originals are large); commit `public/images/gallery/`
 and `src/gallery.json` — that is what Vercel serves.
 
+## Videos
+
+1. Add a YouTube link (normal or Shorts) as a line in `videos.txt`. The order there is the order on the site.
+2. Run `npm run videos` and commit `videos.txt`, `src/videos.json` and `public/images/videos/`.
+
+Title, length, date, orientation and thumbnail are read from YouTube. Horizontal videos get their own
+larger row above the vertical ones. Videos must be public and allow embedding. The player
+(youtube-nocookie.com) only loads when a visitor opens a video.
+
 ## Site settings (`.env`)
 
 - `VITE_SITE_URL` — the live address (no trailing slash). Used for the canonical URL, social previews,

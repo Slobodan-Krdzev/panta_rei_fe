@@ -117,7 +117,7 @@ const HAND_WRITTEN = [
       },
       {
         q: "Како да ве резервираме?",
-        a: "Јавете се на некој од броевите подолу или пишете ни на Facebook (@pantareiband) или Instagram (@grupapantarei) со датумот и местото на крштевката.",
+        a: "Јавете се на некој од броевите подолу или пишете ни на pantareibooking@gmail.com, Facebook (@pantareiband) или Instagram (@grupapantarei) со датумот и местото на крштевката.",
       },
     ],
   },
@@ -216,7 +216,7 @@ const HAND_WRITTEN = [
       },
       {
         q: "Може ли да ве слушнеме пред свадбата?",
-        a: "На Facebook (@pantareiband) и Instagram (@grupapantarei) објавуваме фотографии и видеа од настапи. Јавете ни се и ќе ви раскажеме сè за тоа како изгледа нашата програма.",
+        a: "На YouTube (@PantaReiBand), Facebook (@pantareiband) и Instagram (@grupapantarei) објавуваме фотографии и видеа од настапи. Јавете ни се и ќе ви раскажеме сè за тоа како изгледа нашата програма.",
       },
       {
         q: "Колку однапред да ве резервираме за свадба во Гевгелија?",
@@ -327,11 +327,16 @@ const CITY_LIST = CITIES.map(
 );
 export const PAGES = [...SERVICES, ...CITY_LIST];
 
-// "/svadbi", "/svadbi/", "/svadbi.html" -> the page; anything else -> null (the home page)
+// "/svadbi", "/svadbi/", "/svadbi.html" -> the page; anything else -> null (the home page or a 404)
 export function findPage(pathname = "/") {
   const slug = pathname.replace(/^\/+|\/+$/g, "").replace(/\.html$/, "");
   return PAGES.find((p) => p.slug === slug) || null;
 }
+
+export const isHome = (pathname = "/") => /^\/*(index(\.html)?)?\/*$/.test(pathname);
+
+// The video section is on the home page, the wedding page and every city page
+export const hasVideos = (page) => page.kind === "city" || page.slug === "svadbi";
 
 export const SERVICE_PAGES = PAGES.filter((p) => p.kind === "service");
 export const CITY_PAGES = PAGES.filter((p) => p.kind === "city");

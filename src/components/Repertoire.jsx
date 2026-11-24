@@ -1,7 +1,8 @@
-import { ArrowUpRight, Camera, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Camera, MessageCircle, Play } from "lucide-react";
 import { LINKS } from "../data.js";
 
 const SOCIALS = [
+  { href: LINKS.youtube, icon: Play, network: "YouTube", handle: "@PantaReiBand" },
   { href: LINKS.facebook, icon: MessageCircle, network: "Facebook", handle: "@pantareiband" },
   { href: LINKS.instagram, icon: Camera, network: "Instagram", handle: "@grupapantarei" },
 ];
@@ -13,8 +14,8 @@ export default function Repertoire() {
         <p className="overline">Слушнете нè во живо</p>
         <h2>Плејлистата кажува дел. Атмосферата — сè.</h2>
         <p>
-          На нашите Facebook и Instagram профили може да погледнете дел од песните што ги
-          изведуваме, фотографии и видеа од настапи. Но, нашиот совет е едноставен: дојдете да нè
+          На нашите YouTube, Facebook и Instagram профили може да погледнете дел од песните што
+          ги изведуваме, фотографии и видеа од настапи. Но, нашиот совет е едноставен: дојдете да нè
           слушнете во живо.
         </p>
       </div>

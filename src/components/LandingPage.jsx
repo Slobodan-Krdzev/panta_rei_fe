@@ -1,15 +1,17 @@
 import { ArrowDown, ArrowUpRight, Check, MapPin, Plus } from "lucide-react";
 import { ContactButton } from "../contact/ContactModal.jsx";
 import SectionKicker from "./SectionKicker.jsx";
+import Videos from "./Videos.jsx";
 import Gallery from "./Gallery.jsx";
 import Booking from "./Booking.jsx";
 import { FACTS } from "../data.js";
-import { CITY_PAGES, SERVICE_PAGES } from "../pages.js";
+import { CITY_PAGES, hasVideos, SERVICE_PAGES } from "../pages.js";
 
 // A service or city page (see src/pages.js). Shares the header, gallery, booking and footer with the home page.
 export default function LandingPage({ page }) {
   const { eyebrow, h1, lead, image, sections, faq } = page;
   const services = SERVICE_PAGES.filter((p) => p.slug !== page.slug);
+  const videos = hasVideos(page);
   const cities = CITY_PAGES.filter((p) => p.slug !== page.slug);
 
   return (
@@ -80,10 +82,12 @@ export default function LandingPage({ page }) {
         </div>
       </section>
 
-      <Gallery number="02" />
+      {videos && <Videos number="02" />}
+
+      <Gallery number={videos ? "03" : "02"} />
 
       <section className="faq section" id="faq">
-        <SectionKicker number="03" label="Прашања" />
+        <SectionKicker number={videos ? "04" : "03"} label="Прашања" />
         <div className="faq-grid">
           <div className="faq-intro">
             <p className="overline">Пред да закажете</p>

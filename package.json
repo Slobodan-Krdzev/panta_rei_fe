@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "gallery": "node scripts/build-gallery.mjs",
+    "videos": "node scripts/build-videos.mjs",
     "predev": "node scripts/build-gallery.mjs",
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-server && node scripts/prerender.mjs",

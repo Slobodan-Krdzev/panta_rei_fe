@@ -5,7 +5,7 @@ import { FAQ } from "../data.js";
 export default function Faq() {
   return (
     <section className="faq section" id="faq">
-      <SectionKicker number="05" label="Прашања" />
+      <SectionKicker number="06" label="Прашања" />
       <div className="faq-grid">
         <div className="faq-intro">
           <p className="overline">Пред да закажете</p>

@@ -2,7 +2,8 @@
 // preview sees the full content), injects the JSON-LD structured data, and writes
 // sitemap.xml + robots.txt for the site URL in .env (VITE_SITE_URL).
 //
-// Output: dist/index.html (home) and dist/<slug>.html for every landing page in src/pages.js.
+// Output: dist/index.html (home), dist/<slug>.html for every landing page in src/pages.js,
+// and dist/404.html, which Vercel serves (with status 404) for every unknown URL.
 // vercel.json has "cleanUrls": true, so /svadbi serves svadbi.html (and /svadbi.html redirects to /svadbi).
 
 import { readFile, rm, writeFile } from "node:fs/promises";
@@ -53,6 +54,26 @@ function landingHead(html, page) {
   return html;
 }
 
+// The 404 page must stay out of search results and must not claim to be the home page
+function notFoundHead(html) {
+  const swaps = [
+    [/<title>[^<]*<\/title>/, "<title>Страницата не постои (404) | Група Панта Реи</title>"],
+    [/(<meta name="description" content=")[^"]*/, "$1Страницата што ја барате не постои или е преместена."],
+    [/(<meta name="robots" content=")[^"]*/, "$1noindex, follow"],
+    [/\s*<meta name="keywords"[^>]*>/, ""],
+    [/\s*<link rel="canonical"[^>]*>/, ""],
+    [/\s*<link rel="alternate" hreflang="mk"[^>]*>/, ""],
+    [/\s*<link rel="alternate" hreflang="x-default"[^>]*>/, ""],
+    [/\s*<meta property="og:url"[^>]*>/, ""],
+    [/\s*<!-- Performance: hero photo is the largest paint -->\s*<link rel="preload" as="image"[^>]*>/, ""],
+  ];
+  for (const [re, value] of swaps) {
+    if (!re.test(html)) throw new Error(`prerender: index.html has no tag matching ${re}`);
+    html = html.replace(re, value);
+  }
+  return html;
+}
+
 const fill = (html, routePath, data) =>
   html.replace("<!--app-html-->", render(routePath)).replace("<!--app-head-->", jsonLd(data));
 
@@ -62,6 +83,11 @@ await writeFile(path.join(DIST, "index.html"), home);
 for (const page of PAGES) {
   await writeFile(path.join(DIST, `${page.slug}.html`), fill(landingHead(template, page), `/${page.slug}`, pageStructuredData(page)));
 }
+
+await writeFile(
+  path.join(DIST, "404.html"),
+  notFoundHead(template).replace("<!--app-html-->", render("/404")).replace("<!--app-head-->", "")
+);
 
 // 2) sitemap.xml — every page, the home page with every photo listed for Google Images
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -96,5 +122,5 @@ await writeFile(path.join(DIST, "robots-block.txt"), `User-agent: *\nDisallow: /
 
 await rm(SERVER, { recursive: true, force: true });
 console.log(
-  `prerender: index.html (${Math.round(home.length / 1024)} KB) + ${PAGES.length} landing pages, sitemap.xml (${PAGES.length + 1} URLs), robots-allow/block.txt → ${SITE_URL}`
+  `prerender: index.html (${Math.round(home.length / 1024)} KB) + ${PAGES.length} landing pages + 404.html, sitemap.xml (${PAGES.length + 1} URLs), robots-allow/block.txt → ${SITE_URL}`
 );

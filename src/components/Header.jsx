@@ -8,6 +8,7 @@ const MOBILE_LINKS = [
   ...NAV,
   { href: LINKS.facebook, label: "Facebook", external: true },
   { href: LINKS.instagram, label: "Instagram", external: true },
+  { href: LINKS.youtube, label: "YouTube", external: true },
 ];
 
 export default function Header() {

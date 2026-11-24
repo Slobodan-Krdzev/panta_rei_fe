@@ -21,7 +21,7 @@ function shuffle(list) {
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export default function Gallery({ number = "04" }) {
+export default function Gallery({ number = "05" }) {
   // Same order on the server and on first paint (so pre-rendered HTML hydrates cleanly), then shuffled
   const [photos, setPhotos] = useState(PHOTOS);
   useEffect(() => setPhotos(shuffle(PHOTOS)), []);

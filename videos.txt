@@ -1,0 +1,6 @@
+# Videos on the site, in display order: one YouTube link per line (normal, youtu.be or Shorts links).
+# Optional custom title after a "|".   After editing, run:  npm run videos
+https://www.youtube.com/shorts/rnk7A51nSRU
+https://www.youtube.com/shorts/vtGcOumNnsI
+https://www.youtube.com/shorts/jETdYRUsbJQ
+https://www.youtube.com/shorts/4mtWk3AR9yA
